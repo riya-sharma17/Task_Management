@@ -47,12 +47,12 @@ export const loginService = async (data: {
     const user = await userModel.findOne({ email: data.email });
 
     if (!user) {
-        throw new ApiError(400, ERROR_RESPONSE.INVALID_CREDENTIALS);
+        throw new ApiError(400, ERROR_RESPONSE.EMAIL_NOT_EXISTS);
     }
 
     const isMatch = await bcrypt.compare(data.password, user.password);
     if (!isMatch) {
-        throw new ApiError(400, ERROR_RESPONSE.INVALID_CREDENTIALS);
+        throw new ApiError(400, ERROR_RESPONSE.INCORRECT_PASSWORD);
     }
 
     const token = generateToken(user);

@@ -67,11 +67,11 @@ exports.signupService = signupService;
 const loginService = async (data) => {
     const user = await user_model_1.default.findOne({ email: data.email });
     if (!user) {
-        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.INVALID_CREDENTIALS);
+        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.EMAIL_NOT_EXISTS);
     }
     const isMatch = await bcryptjs_1.default.compare(data.password, user.password);
     if (!isMatch) {
-        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.INVALID_CREDENTIALS);
+        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.INCORRECT_PASSWORD);
     }
     const token = generateToken(user);
     return { user, token };

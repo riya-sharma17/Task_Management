@@ -26,6 +26,8 @@ exports.ERROR_RESPONSE = {
     TOKEN_EXPIRED: "Session expired, please login again",
     // Users
     USER_NOT_FOUND: "User not found",
+    EMAIL_NOT_EXISTS: "email not exists",
+    INCORRECT_PASSWORD: "Incorrect password",
     // Tasks
     TASK_NOT_FOUND: "Task not found",
     INVALID_TASK_DATA: "Invalid task data",

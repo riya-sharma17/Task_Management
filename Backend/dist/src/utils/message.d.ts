@@ -18,6 +18,8 @@ export declare const ERROR_RESPONSE: {
     UNAUTHORIZED: string;
     TOKEN_EXPIRED: string;
     USER_NOT_FOUND: string;
+    EMAIL_NOT_EXISTS: string;
+    INCORRECT_PASSWORD: string;
     TASK_NOT_FOUND: string;
     INVALID_TASK_DATA: string;
     DUE_DATE_PAST: string;
