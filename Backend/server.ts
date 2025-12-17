@@ -67,25 +67,14 @@ const base_url = process.env.BASE_URL || "";
 
 const myApp = new App(port, base_url);
 const app = myApp.app;
-app.set("trust proxy", 1);
 
-const allowedOrigins = [
-  "https://task-management-blue-ten.vercel.app",
-  "https://task-management-system-frontend-ruby-seven.vercel.app",
-  "http://localhost:5173",
-];
+app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: ["https://task-management-blue-ten.vercel.app", "https://task-management-system-frontend-ruby-seven.vercel.app",
+      "http://localhost:5173"
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -93,7 +82,6 @@ app.use(
 );
 
 app.options("*", cors());
-
 const server = http.createServer(app);
 
 const startServer = async () => {
