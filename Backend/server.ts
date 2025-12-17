@@ -18,7 +18,6 @@ app.use(cors({
 
   origin: [
     "task-management-blue-ten.vercel.app",
-    "https://task-management-system-frontend-ruby-seven.vercel.app",
   ],
 
   credentials: true,

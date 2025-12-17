@@ -51,7 +51,6 @@ const app = myApp.app;
 app.use((0, cors_1.default)({
     origin: [
         "task-management-blue-ten.vercel.app",
-        "https://task-management-system-frontend-ruby-seven.vercel.app",
     ],
     credentials: true,
 }));
