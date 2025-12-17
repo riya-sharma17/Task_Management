@@ -55,19 +55,26 @@ const base_url = process.env.BASE_URL || "";
 const myApp = new app_1.App(port, base_url);
 const app = myApp.app;
 app.set("trust proxy", 1);
+const allowedOrigins = [
+    "https://task-management-blue-ten.vercel.app",
+    "https://task-management-system-frontend-ruby-seven.vercel.app",
+    "http://localhost:5173",
+];
 app.use((0, cors_1.default)({
-    origin: ["https://task-management-blue-ten.vercel.app", "https://task-management-system-frontend-ruby-seven.vercel.app/",
-        "http://localhost:5173"
-    ],
+    origin: (origin, callback) => {
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.options("*", (0, cors_1.default)());
 const server = http_1.default.createServer(app);
-app.get("/health", (_req, res) => {
-    res.status(200).send("ok-from-server-file");
-});
 const startServer = async () => {
     try {
         await (0, connection_1.connectDB)();
