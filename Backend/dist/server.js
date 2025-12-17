@@ -49,7 +49,10 @@ const base_url = process.env.BASE_URL || "";
 const myApp = new app_1.App(port, base_url);
 const app = myApp.app;
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
+    origin: [
+        "http://localhost:5173",
+        "https://your-frontend.onrender.com",
+    ],
     credentials: true,
 }));
 app.use(express_1.default.json({ limit: "16kb" }));
