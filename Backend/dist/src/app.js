@@ -31,11 +31,6 @@ class App {
         this.app.use((0, cookie_parser_1.default)());
     }
     initializeRoutes() {
-        this.app.get('/', (req, res) => {
-            res.status(200).json({
-                message: "Collaborative Task Manager API is running"
-            });
-        });
         this.app.use("/api/v1", routev1_1.default);
     }
 }
