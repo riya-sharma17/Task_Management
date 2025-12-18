@@ -17,7 +17,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: ["https://task-management-blue-ten.vercel.app", "https://task-management-system-frontend-ruby-seven.vercel.app",
+    origin: ["https://task-management-system-frontend-ruby-seven.vercel.app",
       "http://localhost:5173"
     ],
     credentials: true,
