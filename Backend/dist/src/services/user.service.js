@@ -67,11 +67,11 @@ exports.signupService = signupService;
 const loginService = async (data) => {
     const user = await user_model_1.default.findOne({ email: data.email });
     if (!user) {
-        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.EMAIL_NOT_EXISTS);
+        throw new ApiError_1.ApiError(401, message_1.ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
     const isMatch = await bcryptjs_1.default.compare(data.password, user.password);
     if (!isMatch) {
-        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.INCORRECT_PASSWORD);
+        throw new ApiError_1.ApiError(401, message_1.ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
     const token = generateToken(user);
     return { user, token };
@@ -80,7 +80,7 @@ exports.loginService = loginService;
 const getMeService = async (userId) => {
     const user = await user_model_1.default.findById(userId);
     if (!user) {
-        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.USER_NOT_FOUND);
+        throw new ApiError_1.ApiError(400, message_1.ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
     return user;
 };
@@ -109,7 +109,6 @@ const listUsersService = async (query) => {
     const total = await user_model_1.default.countDocuments(filter);
     const users = await user_model_1.default
         .find(filter)
-        .select("-password")
         .skip((page - 1) * limit)
         .limit(limit)
         .sort({ createdAt: -1 })

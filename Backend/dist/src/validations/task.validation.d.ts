@@ -3,9 +3,9 @@ export declare const createTaskSchema: z.ZodObject<{
     title: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
     dueDate: z.ZodCoercedDate<unknown>;
-    priority: z.ZodEnum<{
+    priority: z.ZodOptional<z.ZodEnum<{
         [x: string]: string;
-    }>;
+    }>>;
     status: z.ZodOptional<z.ZodEnum<{
         [x: string]: string;
     }>>;

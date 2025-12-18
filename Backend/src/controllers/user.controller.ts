@@ -39,14 +39,13 @@ export const login = async (
   try {
     const { user, token } = await loginService(req.body);
 
-  res.cookie("access_token", token, {
-  httpOnly: true,
-  secure: true,      
-  sameSite: "none",  
-  path: "/",        
-  maxAge: 24 * 60 * 60 * 1000,
-});
-
+    res.cookie("access_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       message: SUCCESS_RESPONSE.LOGIN_SUCCESS,
@@ -94,7 +93,12 @@ export const updateProfile = async (
 };
 
 export const logout = async (_req: Request, res: Response) => {
-  res.clearCookie("access_token");
+  res.clearCookie("access_token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
 
   return res.status(200).json({
     message: SUCCESS_RESPONSE.LOGOUT_SUCCESS,

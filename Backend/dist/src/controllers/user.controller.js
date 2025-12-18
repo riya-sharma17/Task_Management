@@ -67,7 +67,12 @@ const updateProfile = async (req, res, next) => {
 };
 exports.updateProfile = updateProfile;
 const logout = async (_req, res) => {
-    res.clearCookie("access_token");
+    res.clearCookie("access_token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+    });
     return res.status(200).json({
         message: message_1.SUCCESS_RESPONSE.LOGOUT_SUCCESS,
     });

@@ -21,7 +21,7 @@ exports.SUCCESS_RESPONSE = {
 exports.ERROR_RESPONSE = {
     // Auth
     EMAIL_ALREADY_REGISTERED: "Email already registered",
-    INVALID_CREDENTIALS: "Invalid credentials",
+    INVALID_CREDENTIALS: "Invalid email or password",
     UNAUTHORIZED: "Unauthorized access",
     TOKEN_EXPIRED: "Session expired, please login again",
     // Users
@@ -34,6 +34,9 @@ exports.ERROR_RESPONSE = {
     DUE_DATE_PAST: "Due date must be in the future",
     ASSIGNEE_NOT_FOUND: "Assigned user does not exist",
     NOT_TASK_CREATOR: "You are not allowed to perform this action",
+    ONLY_ASSIGNE: "Only assignee can update task status",
+    ONLY_CREATOR: "Only creator can update task priority",
+    CREATOR_REASSIGN: "Only creator can reassign task",
     // Common
     BAD_REQUEST: "Bad request",
     SERVER_ERROR: "Internal server error",

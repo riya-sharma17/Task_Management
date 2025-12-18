@@ -1,11 +1,4 @@
 "use strict";
-// import express from "express";
-// import * as dotenv from "dotenv";
-// import cors from "cors";
-// import http from "http";
-// import { connectDB } from "./src/databases/connection";
-// import { App } from "./src/app";
-// import { initSocket } from "./src/sockets";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);

@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import cookieParser from "cookie-parser";
+import { errorHandler } from "./middlewares/errorHandler";
 import routev1 from "./routes/routev1";
 
 export class App {
@@ -36,5 +37,6 @@ export class App {
       });
     });
     this.app.use("/api/v1", routev1);
+    this.app.use(errorHandler);
   }
 }

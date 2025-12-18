@@ -1,16 +1,17 @@
 import TaskModel from "../models/task.model";
 import userModel from "../models/user.model";
+import TaskAuditModel from "../models/taskAudit.model";
 import { ApiError } from "../utils/ApiError";
 import { ERROR_RESPONSE } from "../utils/message";
+import { TaskStatus } from "../utils/enum";
+
 import {
     emitTaskCreated,
     emitTaskUpdated,
     emitTaskDeleted,
     emitTaskAssigned,
 } from "../sockets/task.socket";
-import * as dotenv from 'dotenv';
 
-dotenv.config();
 
 export const createTaskService = async (
     creatorId: string,
@@ -22,12 +23,20 @@ export const createTaskService = async (
     }
 
     const task = await TaskModel.create({
-        ...data,
+        title: data.title,
+        description: data.description,
+        dueDate: data.dueDate,
+        priority: data.priority,
+        status: data.status ?? TaskStatus.TODO,
         creatorId,
+        assignedToId: data.assignedToId,
     });
 
     emitTaskCreated(task);
-    emitTaskAssigned(data.assignedToId.toString(), task);
+
+    if (creatorId !== data.assignedToId) {
+        emitTaskAssigned(data.assignedToId, task);
+    }
 
     return task;
 };
@@ -53,29 +62,79 @@ export const updateTaskService = async (
     userId: string,
     data: any
 ) => {
-    const task = await TaskModel.findOneAndUpdate(
-        {
-            _id: taskId,
-            $or: [
-                { creatorId: userId },
-                { assignedToId: userId }
-            ]
-        },
-        data,
-        { new: true }
-    );
+    const task = await TaskModel.findOne({
+        _id: taskId,
+        $or: [
+            { creatorId: userId },
+            { assignedToId: userId },
+        ],
+    });
 
     if (!task) {
-        throw new ApiError(400, ERROR_RESPONSE.TASK_NOT_FOUND);
+        throw new ApiError(404, ERROR_RESPONSE.TASK_NOT_FOUND);
     }
 
-    emitTaskUpdated(task);
+    const isCreator = task.creatorId.equals(userId);
+    const isAssignee = task.assignedToId.equals(userId);
+    const isSelfAssigned = isCreator && isAssignee;
+
+    if (!isSelfAssigned) {
+
+        if (data.status && !isAssignee) {
+            throw new ApiError(
+                403,
+                ERROR_RESPONSE.ONLY_ASSIGNE
+            );
+        }
+
+        if (data.priority && !isCreator) {
+            throw new ApiError(
+                403,
+                ERROR_RESPONSE.ONLY_CREATOR
+            );
+        }
+
+        if (data.assignedToId && !isCreator) {
+            throw new ApiError(
+                403,
+                ERROR_RESPONSE.CREATOR_REASSIGN
+            );
+        }
+    }
+
+    const oldStatus = task.status;
+
+    const updatedTask = await TaskModel.findByIdAndUpdate(
+        taskId,
+        data,
+        { new: true }
+    )
+        .populate("assignedToId", "name email")
+        .populate("creatorId", "name email");
+
+    if (!updatedTask) {
+        throw new ApiError(404, ERROR_RESPONSE.TASK_NOT_FOUND);
+    }
+
+    if (data.status && data.status !== oldStatus) {
+        await TaskAuditModel.create({
+            taskId: updatedTask._id,
+            updatedBy: userId,
+            oldStatus,
+            newStatus: data.status,
+        });
+    }
+
+    emitTaskUpdated(updatedTask);
 
     if (data.assignedToId) {
-        emitTaskAssigned(data.assignedToId.toString(), task);
+        emitTaskAssigned(
+            data.assignedToId.toString(),
+            updatedTask
+        );
     }
 
-    return task;
+    return updatedTask;
 };
 
 export const deleteTaskService = async (
@@ -88,7 +147,7 @@ export const deleteTaskService = async (
     });
 
     if (!task) {
-        throw new ApiError(400, ERROR_RESPONSE.TASK_NOT_FOUND);
+        throw new ApiError(403, ERROR_RESPONSE.TASK_NOT_FOUND);
     }
 
     emitTaskDeleted(taskId);

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const errorHandler_1 = require("./middlewares/errorHandler");
 const routev1_1 = __importDefault(require("./routes/routev1"));
 class App {
     app;
@@ -38,6 +39,7 @@ class App {
             });
         });
         this.app.use("/api/v1", routev1_1.default);
+        this.app.use(errorHandler_1.errorHandler);
     }
 }
 exports.App = App;

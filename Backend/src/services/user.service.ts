@@ -47,23 +47,22 @@ export const loginService = async (data: {
     const user = await userModel.findOne({ email: data.email });
 
     if (!user) {
-        throw new ApiError(400, ERROR_RESPONSE.EMAIL_NOT_EXISTS);
+        throw new ApiError(401, ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
 
     const isMatch = await bcrypt.compare(data.password, user.password);
     if (!isMatch) {
-        throw new ApiError(400, ERROR_RESPONSE.INCORRECT_PASSWORD);
+        throw new ApiError(401, ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
 
     const token = generateToken(user);
-
     return { user, token };
 };
 
 export const getMeService = async (userId: string) => {
     const user = await userModel.findById(userId);
     if (!user) {
-        throw new ApiError(400, ERROR_RESPONSE.USER_NOT_FOUND);
+        throw new ApiError(400, ERROR_RESPONSE.INVALID_CREDENTIALS);
     }
     return user;
 };
@@ -102,7 +101,6 @@ export const listUsersService = async (query: any) => {
 
     const users = await userModel
         .find(filter)
-        .select("-password")
         .skip((page - 1) * limit)
         .limit(limit)
         .sort({ createdAt: -1 })

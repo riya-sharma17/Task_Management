@@ -25,6 +25,9 @@ export declare const ERROR_RESPONSE: {
     DUE_DATE_PAST: string;
     ASSIGNEE_NOT_FOUND: string;
     NOT_TASK_CREATOR: string;
+    ONLY_ASSIGNE: string;
+    ONLY_CREATOR: string;
+    CREATOR_REASSIGN: string;
     BAD_REQUEST: string;
     SERVER_ERROR: string;
 };
