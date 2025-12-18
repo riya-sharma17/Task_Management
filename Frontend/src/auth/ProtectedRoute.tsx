@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await api.get("/user/me"); 
+        await api.get("/user/me");
         setAuthenticated(true);
       } catch {
         setAuthenticated(false);
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     checkAuth();
   }, []);
 
-  if (loading) return <div>Checking auth...</div>;
+  if (loading) return <div className="p-6">Checking authentication...</div>;
 
   return authenticated ? children : <Navigate to="/" replace />;
 };
