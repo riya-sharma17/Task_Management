@@ -1,0 +1,43 @@
+.dropdown-icon-container {
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: rgba(128, 128, 128, 0.184);
+  position: relative;
+}
+
+.icon {
+  font-size: 20px;
+}
+.badge-text {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: orange;
+  font-size: 14px;
+  padding: 1px 7px;
+  border-radius: 50%;
+}
+
+.input-error {
+  border-color: #dc2626;
+}
+
+.error-text {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #dc2626;
+}
+
+.user-select-disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.user-select-disabled + .user-select-icon {
+  color: #9ca3af;
+}

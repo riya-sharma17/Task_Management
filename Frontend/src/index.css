@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer utility {
+  .heading {
+    @apply font-semibold text-2xl;
+  }
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/40 flex items-center justify-center z-50;
+  }
+  .modal-content {
+    @apply bg-white rounded-2xl shadow-2xl p-8  w-full relative;
+    animation: popup 0.4s ease forwards;
+  }
+  .modal-close-button {
+    @apply top-3 right-3 absolute rounded-full hover:bg-gray-200 p-0.5 transition-all cursor-pointer ease-in duration-300 h-6 w-6;
+  }
+  .primary-button {
+    @apply w-full cursor-pointer flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 hover:-translate-y-0.5 text-white font-medium rounded-lg transition-all duration-300;
+  }
+  .secondary-button {
+    @apply w-full cursor-pointer flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 hover:-translate-y-0.5 text-white font-medium rounded-lg transition-all duration-300;
+  }
+}

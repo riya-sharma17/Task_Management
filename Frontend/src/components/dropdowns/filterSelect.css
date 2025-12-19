@@ -1,0 +1,26 @@
+.filter-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.filter-select-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.filter-select-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-select-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}

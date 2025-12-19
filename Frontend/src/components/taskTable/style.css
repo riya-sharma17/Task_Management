@@ -1,0 +1,277 @@
+.task-table-container {
+  padding: 24px;
+  background: #f9fafb;
+  min-height: 80vh;
+  width: 100%;
+}
+
+.table-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #111827;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.task-table thead {
+  background: #f3f4f6;
+}
+
+.task-table th,
+.task-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #374151;
+}
+
+.task-table th {
+  font-weight: 600;
+  color: #111827;
+}
+
+.task-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.task-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.title-cell {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Priority colors */
+.priority.low {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.priority.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+.priority.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.priority.urgent {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* Status colors */
+.status.todo {
+  background: #e5e7eb;
+  color: #374151;
+}
+.status.inprogress {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.status.review {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Actions */
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.btn.edit {
+  background: #2563eb;
+  color: white;
+}
+.btn.edit:hover {
+  background: #1d4ed8;
+}
+
+.btn.delete {
+  background: #dc2626;
+  color: white;
+}
+.btn.delete:hover {
+  background: #b91c1c;
+}
+
+.empty {
+  text-align: center;
+  padding: 24px;
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-title {
+    font-size: 18px;
+  }
+
+  .task-table th,
+  .task-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* Action cell */
+.action-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Base icon button */
+.action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Icon sizing consistency */
+.action-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+/* Edit action */
+.action-icon.edit {
+  color: #2563eb; /* indigo-600 */
+}
+
+.action-icon.edit:hover {
+  background-color: #eef2ff; /* indigo-50 */
+  border-color: #c7d2fe; /* indigo-200 */
+}
+
+/* Delete action */
+.action-icon.delete {
+  color: #dc2626; /* red-600 */
+}
+
+.action-icon.delete:hover {
+  background-color: #fee2e2; /* red-100 */
+  border-color: #fecaca; /* red-200 */
+}
+
+/* Active press feedback */
+.action-icon:active {
+  transform: scale(0.95);
+}
+
+/* Keyboard accessibility */
+.action-icon:focus-visible {
+  outline: 2px solid #6366f1; /* indigo-500 */
+  outline-offset: 2px;
+}
+
+/* Disabled state (future-proof) */
+.action-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Header container */
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* Add Task button */
+.add-task-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #2563eb; /* indigo-600 */
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* Hover */
+.add-task-btn:hover {
+  background-color: #1d4ed8; /* indigo-700 */
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+/* Active */
+.add-task-btn:active {
+  transform: scale(0.97);
+}
+
+/* Focus (accessibility) */
+.add-task-btn:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+/* Icon alignment */
+.add-task-btn svg {
+  stroke-width: 2;
+}
+
+/* Responsive (mobile) */
+@media (max-width: 640px) {
+  .add-task-btn span {
+    display: none;
+  }
+
+  .add-task-btn {
+    padding: 10px;
+  }
+}
