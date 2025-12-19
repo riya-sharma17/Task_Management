@@ -41,10 +41,35 @@ export const createTaskService = async (
     return task;
 };
 
-export const getTasksService = async (query: any) => {
+// export const getTasksService = async (query: any) => {
+//     const { status, priority, sort } = query;
+
+//     const filter: any = {};
+//     if (status) filter.status = status;
+//     if (priority) filter.priority = priority;
+
+//     const sortQuery: any = {};
+//     if (sort === "dueDate") sortQuery.dueDate = 1;
+
+//     return TaskModel.find(filter)
+//         .sort(sortQuery)
+//         .populate("assignedToId", "name email")
+//         .populate("creatorId", "name email");
+// };
+
+export const getTasksService = async (
+    query: any,
+    userId: string
+) => {
     const { status, priority, sort } = query;
 
-    const filter: any = {};
+    const filter: any = {
+        $or: [
+            { creatorId: userId },
+            { assignedToId: userId },
+        ],
+    };
+
     if (status) filter.status = status;
     if (priority) filter.priority = priority;
 

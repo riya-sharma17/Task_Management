@@ -27,22 +27,42 @@ export const createTask = async (
     }
 };
 
+// export const getTasks = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ) => {
+//     try {
+//         const tasks = await getTasksService(req.query);
+
+//         return res.status(200).json({
+//             message: SUCCESS_RESPONSE.TASKS_FETCHED,
+//             data: tasks,
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
+
 export const getTasks = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
-        const tasks = await getTasksService(req.query);
+        const userId = res.locals.user._id;
+
+        const tasks = await getTasksService(req.query, userId);
 
         return res.status(200).json({
             message: SUCCESS_RESPONSE.TASKS_FETCHED,
-            data: tasks,
+            data: tasks
         });
     } catch (error) {
         next(error);
     }
 };
+
 
 export const updateTask = async (
     req: Request<{ id: string }>,

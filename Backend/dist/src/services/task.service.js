@@ -32,9 +32,26 @@ const createTaskService = async (creatorId, data) => {
     return task;
 };
 exports.createTaskService = createTaskService;
-const getTasksService = async (query) => {
+// export const getTasksService = async (query: any) => {
+//     const { status, priority, sort } = query;
+//     const filter: any = {};
+//     if (status) filter.status = status;
+//     if (priority) filter.priority = priority;
+//     const sortQuery: any = {};
+//     if (sort === "dueDate") sortQuery.dueDate = 1;
+//     return TaskModel.find(filter)
+//         .sort(sortQuery)
+//         .populate("assignedToId", "name email")
+//         .populate("creatorId", "name email");
+// };
+const getTasksService = async (query, userId) => {
     const { status, priority, sort } = query;
-    const filter = {};
+    const filter = {
+        $or: [
+            { creatorId: userId },
+            { assignedToId: userId },
+        ],
+    };
     if (status)
         filter.status = status;
     if (priority)

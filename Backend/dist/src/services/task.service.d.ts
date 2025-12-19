@@ -3,7 +3,7 @@ export declare const createTaskService: (creatorId: string, data: any) => Promis
 }> & {
     __v: number;
 }>;
-export declare const getTasksService: (query: any) => Promise<(import("mongoose").Document<unknown, {}, import("../interfaces/task.interface").ITask, {}, {}> & import("../interfaces/task.interface").ITask & Required<{
+export declare const getTasksService: (query: any, userId: string) => Promise<(import("mongoose").Document<unknown, {}, import("../interfaces/task.interface").ITask, {}, {}> & import("../interfaces/task.interface").ITask & Required<{
     _id: import("mongoose").Types.ObjectId;
 }> & {
     __v: number;
