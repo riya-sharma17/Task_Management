@@ -47,7 +47,7 @@ export const taskValidationSchema = Yup.object({
 
     description: Yup.string()
         .trim()
-        .required("Description is required"),
+        .optional(),
 
     dueDate: Yup.date()
         .required("Due date is required")

@@ -317,7 +317,7 @@ const TaskTable: React.FC = () => {
 
                     {/* Description */}
                     <div className="form-field">
-                        <label className="form-label">Description <span className="ml-1 text-red-500">*</span></label>
+                        <label className="form-label">Description</label>
                         <textarea
                             disabled={taskModal.mode === "edit" && taskModal.task?.creatorId._id !== myId}
                             className={`form-textarea ${taskForm.touched.description && taskForm.errors.description
