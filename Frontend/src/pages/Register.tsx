@@ -5,7 +5,7 @@ import EmailInputField from "../components/inputs/EmailInputField";
 import PasswordInputField from "../components/inputs/PasswordInputField";
 import { useRegister } from "../hooks/useRegister";
 import AuthButton from "../components/buttons/AuthButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextInputField from "../components/inputs/TextInputField";
 
 const RegisterSchema = Yup.object({
@@ -36,6 +36,7 @@ const registerInitialValues = {
 const Register = () => {
     const [loading, setLoading] = useState(false);
     const { mutateAsync } = useRegister();
+    const navigate = useNavigate();
 
     const registerForm = useFormik({
         initialValues: registerInitialValues,
@@ -51,6 +52,8 @@ const Register = () => {
                 });
 
                 actions.resetForm();
+                navigate("/");
+
             } catch (error) {
                 console.error("Register error", error);
             } finally {
@@ -80,7 +83,7 @@ const Register = () => {
                     {/* Name */}
                     <TextInputField
                         required
-                        label="Full Name"
+                        label="Name"
                         name="name"
                         value={registerForm.values.name}
                         placeHolder="Enter your name"

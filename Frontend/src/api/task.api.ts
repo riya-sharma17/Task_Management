@@ -28,7 +28,12 @@ export const getTasksListApi = async (filters?: TaskFilters): Promise<Task[]> =>
 
 /* ================= CREATE ================= */
 export const createTaskApi = async (payload: CreateTaskPayload) => {
-    const res = await api.post(ENDPOINTS.CREATE_TASK, payload);
+    const dataToSend = Object.fromEntries(
+        Object.entries(payload).filter(
+            ([, value]) => value !== "" && value !== undefined && value !== null
+        )
+    );
+    const res = await api.post(ENDPOINTS.CREATE_TASK, dataToSend);
     return res.data.data;
 };
 

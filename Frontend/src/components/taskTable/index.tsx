@@ -27,7 +27,6 @@ const TaskTable: React.FC = () => {
     });
 
     const { data: tasks, isLoading, isError } = useTasks(filters);
-    // const { data: tasks, isLoading, isError } = useTasks();
 
 
     const createTask = useCreateTask();
@@ -159,12 +158,13 @@ const TaskTable: React.FC = () => {
 
     return (
         <div className="task-table-container">
-            <div className="table-header md:flex-row flex-col">
-                <h2 className="table-title">Task Management</h2>
+            <div className="flex flex-col gap-4 rounded-lg bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
+                <h2 className="text-lg font-semibold text-gray-800">
+                    Task Management
+                </h2>
 
-
-
-                <div className="flex md:flex-row flex-col gap-5 items-end">
+                {/* Filter and add Actions */}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
                     <FilterSelect
                         label="Status"
                         value={filters.status}
@@ -189,13 +189,16 @@ const TaskTable: React.FC = () => {
                         }
                     />
 
-
-                    <button className="add-task-btn" onClick={handleAdd}>
-                        <FiPlus size={18} />
+                    <button
+                        onClick={handleAdd}
+                        className="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 sm:self-auto"
+                    >
+                        <FiPlus size={16} />
                         <span>Add Task</span>
                     </button>
                 </div>
             </div>
+
 
             <div className="table-wrapper">
                 <table className="task-table">
@@ -261,10 +264,18 @@ const TaskTable: React.FC = () => {
 
                         {tasks?.length === 0 && (
                             <tr>
-                                <td colSpan={7} className="empty">
-                                    No tasks available
+                                <td colSpan={7}>
+                                    <div className="flex flex-col items-center justify-center py-12 text-center">
+                                        <p className="text-sm font-medium text-gray-700">
+                                            No tasks available
+                                        </p>
+                                        <p className="mt-1 text-xs text-gray-500">
+                                            Create a task to get started
+                                        </p>
+                                    </div>
                                 </td>
                             </tr>
+
                         )}
                     </tbody>
                 </table>
@@ -288,7 +299,7 @@ const TaskTable: React.FC = () => {
 
                     {/* Title */}
                     <div className="form-field">
-                        <label className="form-label">Title</label>
+                        <label className="form-label">Title <span className="ml-1 text-red-500">*</span></label>
                         <input
                             type="text"
                             disabled={taskModal.mode === "edit" && taskModal.task?.creatorId._id !== myId}
@@ -306,7 +317,7 @@ const TaskTable: React.FC = () => {
 
                     {/* Description */}
                     <div className="form-field">
-                        <label className="form-label">Description</label>
+                        <label className="form-label">Description <span className="ml-1 text-red-500">*</span></label>
                         <textarea
                             disabled={taskModal.mode === "edit" && taskModal.task?.creatorId._id !== myId}
                             className={`form-textarea ${taskForm.touched.description && taskForm.errors.description
@@ -342,7 +353,7 @@ const TaskTable: React.FC = () => {
 
                         {/* Due Date */}
                         <div className="form-field w-1/2">
-                            <label className="form-label">Due Date</label>
+                            <label className="form-label">Due Date <span className="ml-1 text-red-500">*</span></label>
                             <input
                                 disabled={taskModal.mode === "edit" && taskModal.task?.assignedToId._id === myId}
                                 type="date"

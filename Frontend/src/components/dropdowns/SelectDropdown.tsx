@@ -26,7 +26,7 @@ const SelectDropdown: React.FC<Props> = ({
 }) => {
     return (
         <div className="user-select">
-            <label className="user-select-label">{label}</label>
+            <label className="user-select-label">{label} </label>
 
             <div className="relative">
                 <select

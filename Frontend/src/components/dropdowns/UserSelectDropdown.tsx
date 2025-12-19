@@ -23,7 +23,7 @@ const UserSelectDropdown: React.FC<Props> = ({
 
     return (
         <div className="user-select">
-            {label && <label className="user-select-label">{label}</label>}
+            {label && <label className="user-select-label">{label} <span className="ml-1 text-red-500">*</span></label>}
 
             <div className="relative">
                 <select

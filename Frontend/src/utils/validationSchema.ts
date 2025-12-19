@@ -58,11 +58,11 @@ export const taskValidationSchema = Yup.object({
 
     priority: Yup.mixed<TaskPriority>()
         .oneOf(Object.values(TaskPriority), "Invalid priority")
-        .required("Priority is required"),
+        .optional(),
 
     status: Yup.mixed<TaskStatus>()
         .oneOf(Object.values(TaskStatus), "Invalid status")
-        .required("Status is required"),
+        .optional(),
 
     assignedToId: Yup.string()
         .required("Please select a user"),
