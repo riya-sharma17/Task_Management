@@ -17,8 +17,8 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: ["https://task-management-4z6g.vercel.app/",
-      "https://task-management-4z6g-en9jrd4tr-riya-sharma17s-projects.vercel.app/",
+    origin: ["https://task-management-4z6g.vercel.app",
+      "https://task-management-4z6g-en9jrd4tr-riya-sharma17s-projects.vercel.app",
       "http://localhost:5173"
     ],
     credentials: true,
